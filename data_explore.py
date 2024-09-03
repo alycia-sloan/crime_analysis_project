@@ -1,5 +1,5 @@
 import pandas as pd
-import plotly.express as px
+
 
 #incorporate data
 df_arrestee = pd.read_csv("data\\NIBRS_ARRESTEE.csv")
@@ -18,13 +18,14 @@ incident_count = merge_arrestee_offtyp['offense_category_name'].value_counts()
 #Count of incidents by county_name
 incident_agency_merge = pd.merge(df_incident,df_agencies)
 incident_agency_count = incident_agency_merge['county_name'].value_counts()
-#print(incident_agency_count)
-
 
 month_incident_merge = pd.merge(df_incident, df_months)
 month_incident_count = month_incident_merge['month_num'].value_counts()
 sorted_month_incident_count = month_incident_count.sort_index()
-print(sorted_month_incident_count)
+sorted_by_incident_rate = month_incident_count.sort_values()
+
 print("--Monthly Crime Stats--")
-print(f"Average: {sorted_month_incident_count.mean()}")
-print(f"Standard Deviation: {sorted_month_incident_count.std()}")
+print(f"Average # of Incidents Per Month: {sorted_month_incident_count.mean()}")
+print(f"Standard Deviation of Incidents Per Month: {sorted_month_incident_count.std()}")
+print(f"Month with least incidents: {sorted_by_incident_rate.idxmin()}")
+print(f"Month with the most incidents: {sorted_by_incident_rate.idxmax()}")
