@@ -24,8 +24,17 @@ month_incident_count = month_incident_merge['month_num'].value_counts()
 sorted_month_incident_count = month_incident_count.sort_index()
 sorted_by_incident_rate = month_incident_count.sort_values()
 
-print("--Monthly Crime Stats--")
+#Monthly Stats Print to screen
+print("--Monthly Crime Stats for Virginina in 2021--")
 print(f"Average # of Incidents Per Month: {sorted_month_incident_count.mean()}")
 print(f"Standard Deviation of Incidents Per Month: {sorted_month_incident_count.std()}")
 print(f"Month with least incidents: {sorted_by_incident_rate.idxmin()}")
 print(f"Month with the most incidents: {sorted_by_incident_rate.idxmax()}")
+print("\n")
+
+#Incidents by County Info
+merge_incident_county = pd.merge(df_incident, df_agencies)
+#print(merge_incident_county.head(30))
+county_incident_count = merge_incident_county['county_name'].value_counts()
+print(f"Top 10 Counties with most incidents: ")
+print(county_incident_count.head(10))
